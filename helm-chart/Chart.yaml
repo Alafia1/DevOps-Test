@@ -1,0 +1,7 @@
+apiVersion: v2
+name: mongo-db-express-deployment
+description: DevOps Test for frontend app (mongo-express) and backend app (mongodb) using helm chart
+type: application
+
+version: 0.1.0
+appVersion: 1.16.0

@@ -1,0 +1,56 @@
+secret:
+  name: mongodb-secret
+  mongo_username: dXNlcm5hbWU=
+  mongo_password: cGFzc3dvcmQ=
+
+configmap:
+  name: mongodb-url
+  db_url: mongodb-service
+  db_url_key: database_url
+
+pv:
+  name: task-pv-volume
+  label_name: mynfs
+  storage_class: manual
+  storage: 10Gi
+  access_mode: ReadWriteMany
+  nfs_server_ip: 35.236.20.83
+  path: "/srv/nfs/mydata"
+
+pvc:
+  name: task-pv-claim
+  storage: 1Gi
+
+mongodb:
+  name: mongodb-deployment
+  replicas: 1
+  label: mongodb
+  image: mongo
+  container_port: 27017
+  username_key: mongo-username
+  password_key: mongo-password
+
+volume:
+  mount_path: /data/db
+  name: data
+
+express:
+  name: mongo-express
+  label_name: mongo-express
+  image: mongo-express
+  replicas: 2
+  container_port: 8081
+
+mongodb_service:
+  name: mongodb-service
+  protocol: TCP
+  port: 27017
+  target_port: 27017
+
+express_service:
+  name: mongo-express-service
+  protocol: TCP
+  port: 8081
+  target_port: 8081
+  nodeport: 30000
+  type: LoadBalancer
