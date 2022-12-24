@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.express.name }}    
+  name: {{ .Values.express.name }} 
+  namespace: {{ .Values.namespace }}   
   labels:
     app: {{ .Values.express.label_name }}
 spec:
@@ -19,6 +20,8 @@ spec:
         image: {{ .Values.express.image }}
         ports:
         - containerPort: {{ .Values.express.container_port }}
+        resources:
+          {{- toYaml .Values.containers.computerc | nindent 10 }}
         env:
         - name: ME_CONFIG_MONGODB_SERVER
           valueFrom:

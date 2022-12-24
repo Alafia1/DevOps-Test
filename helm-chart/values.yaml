@@ -1,3 +1,5 @@
+namespace: devops-test
+
 secret:
   name: mongodb-secret
   mongo_username: dXNlcm5hbWU=
@@ -40,6 +42,13 @@ express:
   image: mongo-express
   replicas: 2
   container_port: 8081
+  computerc:
+    limits:
+      cpu: 0.2
+      memory: 500Mi
+    requests:
+      cpu: 0.2
+      memory: 500Mi
 
 mongodb_service:
   name: mongodb-service
@@ -52,5 +61,7 @@ express_service:
   protocol: TCP
   port: 8081
   target_port: 8081
-  nodeport: 30000
-  type: LoadBalancer
+
+ingress:
+  name: mongo-express-ingress
+  host: devops-test.com

@@ -1,13 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.express_service.name }}    
+  name: {{ .Values.express_service.name }} 
+  namespace: {{ .Values.namespace }}   
 spec:
   selector:
     app: {{ .Values.express.label_name }}
-  type: {{ .Values.express_service.type }}
   ports:
     - protocol: {{ .Values.express_service.protocol }}
       port: {{ .Values.express_service.port }}
       targetPort: {{ .Values.express_service.target_port }}
-      nodePort: {{ .Values.express_service.nodeport }}
